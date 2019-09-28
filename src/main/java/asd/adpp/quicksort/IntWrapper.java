@@ -8,7 +8,7 @@ public class IntWrapper implements Comparable<IntWrapper> {
         this.value = value;
     }
 
-    public int getValue() {
+    private int getValue() {
         return this.value;
     }
 

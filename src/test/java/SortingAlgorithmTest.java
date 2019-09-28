@@ -29,9 +29,33 @@ public class SortingAlgorithmTest {
     }
 
     @Test
-    public void arrayWithDoubles() {
+    public void arrayWithDoubleValues() {
         IntWrapper[] array = SortingUtil.createIntWrapperArray(3, 3, 2, 5, 3, 1, 5, 4, 3, 2, 1);
         IntWrapper[] expected = SortingUtil.createIntWrapperArray(1, 1, 2, 2, 3, 3, 3, 3, 4, 5, 5);
+
+        testSortingAlgorithm(new QuickSort<>(), array, expected);
+    }
+
+    @Test
+    public void reversedSorted() {
+        IntWrapper[] array = SortingUtil.createIntWrapperArray(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
+        IntWrapper[] expected = SortingUtil.createIntWrapperArray(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+
+        testSortingAlgorithm(new QuickSort<>(), array, expected);
+    }
+
+    @Test
+    public void negativeValues() {
+        IntWrapper[] array = SortingUtil.createIntWrapperArray(-3, -5, -1, -9, -4);
+        IntWrapper[] expected = SortingUtil.createIntWrapperArray(-9, -5, -4, -3, -1);
+
+        testSortingAlgorithm(new QuickSort<>(), array, expected);
+    }
+
+    @Test
+    public void negativeAndPositiveValues() {
+        IntWrapper[] array = SortingUtil.createIntWrapperArray(-2, 5, -7, 3, 1, 0, -3);
+        IntWrapper[] expected = SortingUtil.createIntWrapperArray(-7, -3, -2, 0, 1, 3, 5);
 
         testSortingAlgorithm(new QuickSort<>(), array, expected);
     }

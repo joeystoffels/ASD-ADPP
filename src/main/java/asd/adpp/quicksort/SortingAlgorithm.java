@@ -1,7 +1,7 @@
 package asd.adpp.quicksort;
 
-public interface SortingAlgorithm {
+public interface SortingAlgorithm<T> {
 
-    void sort(int[] array);
+    void sort(T[] array);
 
 }

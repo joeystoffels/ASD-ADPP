@@ -1,11 +1,10 @@
-import asd.adpp.quicksort.SortingAlgorithm;
+import asd.adpp.quicksort.NewInteger;
 import asd.adpp.quicksort.QuickSort;
+import asd.adpp.quicksort.SortingAlgorithm;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
 import java.util.Arrays;
-import java.util.Random;
-import java.util.stream.IntStream;
 
 import static org.junit.Assert.assertArrayEquals;
 
@@ -14,62 +13,55 @@ public class SortingAlgorithmTest {
 
     @Test
     public void sort_emptyArray() {
-        int[] array = {};
-        int[] expected = {};
+        NewInteger[] array = {};
+        NewInteger[] expected = {};
 
-        test(new QuickSort(), array, expected);
+        testSortingAlgorithm(new QuickSort<>(), array, expected);
     }
 
     @Test
     public void sort_smallArray() {
-        int[] array = {5, 4};
-        int[] expected = {4, 5};
+        NewInteger[] array = createNewIntegerArray(5, 4);
+        NewInteger[] expected = createNewIntegerArray(4, 5);
 
-        test(new QuickSort(), array, expected);
-    }
-
-
-    @Test
-    public void sort_mediumArray() {
-        int[] array = createIntArray(50);
-        int[] expected = createExpectedArray(array);
-
-        test(new QuickSort(), array, expected);
+        testSortingAlgorithm(new QuickSort<>(), array, expected);
     }
 
     @Test
-    public void sort_largeArray() {
-        int[] array = createIntArray(10000);
-        int[] expected = createExpectedArray(array);
+    public void sort_arrayWithDoubles() {
+        NewInteger[] array = createNewIntegerArray(3, 3, 2, 5, 3, 1, 5, 4, 3, 2, 1);
+        NewInteger[] expected = createNewIntegerArray(1, 1, 2, 2, 3, 3, 3, 3, 4, 5, 5);
 
-        test(new QuickSort(), array, expected);
+        testSortingAlgorithm(new QuickSort<>(), array, expected);
     }
 
     @Test
     public void sort_sameValues() {
-        int[] array = {5, 5, 5, 5, 5, 5, 5};
-        int[] expected = {5, 5, 5, 5, 5, 5, 5};
+        NewInteger[] array = createNewIntegerArray(5, 5, 5, 5);
+        NewInteger[] expected = createNewIntegerArray(5, 5, 5, 5);
 
-        test(new QuickSort(), array, expected);
+        testSortingAlgorithm(new QuickSort<>(), array, expected);
     }
 
-    private void test(SortingAlgorithm algorithm, int[] array, int[] expected) {
+    private <T> void testSortingAlgorithm(SortingAlgorithm<T> algorithm, T[] array, T[] expected) {
+        log.info("Before sort: " + Arrays.toString(array));
+
         algorithm.sort(array);
 
-        log.info(Arrays.toString(array));
-        log.info(Arrays.toString(expected));
+        log.info("After sort : " + Arrays.toString(array));
+        log.info("Expected   : " + Arrays.toString(expected));
 
         assertArrayEquals(array, expected);
     }
 
-    private int[] createIntArray(int arraySize) {
-        Random random = new Random();
-        return IntStream.generate(random::nextInt).limit(arraySize).toArray();
+    private NewInteger[] createNewIntegerArray(int... ints) {
+        NewInteger[] array = new NewInteger[ints.length];
+
+        for (int x = 0; x < ints.length; x++) {
+            array[x] = new NewInteger(ints[x]);
+        }
+
+        return array;
     }
 
-    private int[] createExpectedArray(int[] array) {
-        int[] expected = array.clone();
-        Arrays.sort(expected);
-        return expected;
-    }
 }

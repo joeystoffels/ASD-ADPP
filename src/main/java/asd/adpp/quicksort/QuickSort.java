@@ -1,12 +1,11 @@
 package asd.adpp.quicksort;
 
-public class QuickSort implements SortingAlgorithm {
+public class QuickSort<T extends Comparable<T>> implements SortingAlgorithm<T> {
 
-    private int[] array;
+    private T[] array;
 
     @Override
-    public void sort(int[] input) {
-
+    public void sort(T[] input) {
         if (input == null || input.length == 0) {
             return;
         }
@@ -16,49 +15,33 @@ public class QuickSort implements SortingAlgorithm {
     }
 
     private void quickSort(int startIndex, int endIndex) {
-        final int pivot = array[startIndex + (endIndex - startIndex) / 2];
+        final T pivot = array[startIndex + (endIndex - startIndex) / 2];
 
-        int leftNr = startIndex;
-        int rightNr = endIndex;
+        int leftIndex = startIndex;
+        int rightIndex = endIndex;
 
-        // Divide into two arrays
-        while (leftNr <= rightNr) {
-
-            // In each iteration, we will identify a number from left side which
-            // is greater then the pivot value, and also we will identify a number
-            // from right side which is less then the pivot value. Once the search
-            // is done, then we exchange both numbers.
-
-            while (array[leftNr] < pivot) {
-                leftNr++;
+        while (leftIndex <= rightIndex) {
+            while (array[leftIndex].compareTo(pivot) < 0) {
+                leftIndex++;
             }
 
-            while (array[rightNr] > pivot) {
-                rightNr--;
+            while (array[rightIndex].compareTo(pivot) > 0) {
+                rightIndex--;
             }
 
-            if (leftNr <= rightNr) {
-                swap(leftNr, rightNr);
-                //move index to next position on both sides
-                leftNr++;
-                rightNr--;
+            if (leftIndex <= rightIndex) {
+                T temp = array[leftIndex];
+                array[leftIndex] = array[rightIndex];
+                array[rightIndex] = temp;
+
+                leftIndex++;
+                rightIndex--;
             }
         }
 
-        if (startIndex < rightNr) {
-            quickSort(startIndex, rightNr);
-        }
+        if (startIndex < rightIndex) quickSort(startIndex, rightIndex);
 
-        if (leftNr < endIndex) {
-            quickSort(leftNr, endIndex);
-        }
-
-    }
-
-    private void swap(int first, int second) {
-        final int firstValue = array[first];
-        array[first] = array[second];
-        array[second] = firstValue;
+        if (leftIndex < endIndex) quickSort(leftIndex, endIndex);
     }
 
 }

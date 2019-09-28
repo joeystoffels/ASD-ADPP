@@ -1,6 +1,7 @@
-import asd.adpp.quicksort.NewInteger;
+import asd.adpp.quicksort.IntWrapper;
 import asd.adpp.quicksort.QuickSort;
 import asd.adpp.quicksort.SortingAlgorithm;
+import asd.adpp.util.SortingUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -12,33 +13,33 @@ import static org.junit.Assert.assertArrayEquals;
 public class SortingAlgorithmTest {
 
     @Test
-    public void sort_emptyArray() {
-        NewInteger[] array = {};
-        NewInteger[] expected = {};
+    public void emptyArray() {
+        IntWrapper[] array = {};
+        IntWrapper[] expected = {};
 
         testSortingAlgorithm(new QuickSort<>(), array, expected);
     }
 
     @Test
-    public void sort_smallArray() {
-        NewInteger[] array = createNewIntegerArray(5, 4);
-        NewInteger[] expected = createNewIntegerArray(4, 5);
+    public void smallArray() {
+        IntWrapper[] array = SortingUtil.createIntWrapperArray(5, 4);
+        IntWrapper[] expected = SortingUtil.createIntWrapperArray(4, 5);
 
         testSortingAlgorithm(new QuickSort<>(), array, expected);
     }
 
     @Test
-    public void sort_arrayWithDoubles() {
-        NewInteger[] array = createNewIntegerArray(3, 3, 2, 5, 3, 1, 5, 4, 3, 2, 1);
-        NewInteger[] expected = createNewIntegerArray(1, 1, 2, 2, 3, 3, 3, 3, 4, 5, 5);
+    public void arrayWithDoubles() {
+        IntWrapper[] array = SortingUtil.createIntWrapperArray(3, 3, 2, 5, 3, 1, 5, 4, 3, 2, 1);
+        IntWrapper[] expected = SortingUtil.createIntWrapperArray(1, 1, 2, 2, 3, 3, 3, 3, 4, 5, 5);
 
         testSortingAlgorithm(new QuickSort<>(), array, expected);
     }
 
     @Test
-    public void sort_sameValues() {
-        NewInteger[] array = createNewIntegerArray(5, 5, 5, 5);
-        NewInteger[] expected = createNewIntegerArray(5, 5, 5, 5);
+    public void sameValues() {
+        IntWrapper[] array = SortingUtil.createIntWrapperArray(5, 5, 5, 5);
+        IntWrapper[] expected = SortingUtil.createIntWrapperArray(5, 5, 5, 5);
 
         testSortingAlgorithm(new QuickSort<>(), array, expected);
     }
@@ -52,16 +53,6 @@ public class SortingAlgorithmTest {
         log.info("Expected   : " + Arrays.toString(expected));
 
         assertArrayEquals(array, expected);
-    }
-
-    private NewInteger[] createNewIntegerArray(int... ints) {
-        NewInteger[] array = new NewInteger[ints.length];
-
-        for (int x = 0; x < ints.length; x++) {
-            array[x] = new NewInteger(ints[x]);
-        }
-
-        return array;
     }
 
 }

@@ -23,16 +23,53 @@ public class BinarySearchTree {
         return root;
     }
 
-    public int findMin() {
-        return 0;
+    public Node find(int value) {
+        if (root != null) {
+            return this.findNode(root, value);
+        } else {
+            return null;
+        }
     }
 
-    public int findMax() {
-        return 1;
+    private Node findNode(Node root, int value) {
+        if (value != root.getValue()) {
+            if (value < root.getValue()) {
+                root = root.getLeftNode();
+            } else {
+                root = root.getRightNode();
+            }
+            return findNode(root, value);
+        } else {
+            return root;
+        }
     }
 
-    public int find(int value) {
-        return value;
+    public Node findMin() {
+        if (root != null) {
+            Node node = root;
+
+            while (node != null && node.getLeftNode() != null) {
+                node = node.getLeftNode();
+            }
+
+            return node;
+        } else {
+            return null;
+        }
+    }
+
+    public Node findMax() {
+        if (root != null) {
+            Node node = root;
+
+            while (node != null && node.getRightNode() != null) {
+                node = node.getRightNode();
+            }
+
+            return node;
+        } else {
+            return null;
+        }
     }
 
     public void remove(int value) {

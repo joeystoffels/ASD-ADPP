@@ -1,5 +1,6 @@
 package asd.adpp;
 
+import asd.adpp.binaire.zoekboom.BinarySearchTree;
 import asd.adpp.kortste.paden.Dijkstra;
 import asd.adpp.kortste.paden.Graph;
 import asd.adpp.kortste.paden.Node;
@@ -16,8 +17,9 @@ public class Main {
 
     public static void main(String... args) {
         Main main = new Main();
-        main.demoGenericQuickSort();
-        main.demoDijkstra();
+//        main.demoGenericQuickSort();
+//        main.demoDijkstra();
+        main.demoBinarySearchTree();
     }
 
     private void demoGenericQuickSort() {
@@ -55,6 +57,22 @@ public class Main {
         Dijkstra.calculateShortestPathFromSource(nodeA);
 
 //        log.info();
+    }
+
+    private void demoBinarySearchTree() {
+        BinarySearchTree binarySearchTree = new BinarySearchTree();
+
+        binarySearchTree.insert(25);
+        binarySearchTree.insert(24);
+        binarySearchTree.insert(26);
+        binarySearchTree.insert(35);
+        binarySearchTree.insert(36);
+        binarySearchTree.insert(34);
+        binarySearchTree.insert(50);
+        binarySearchTree.insert(49);
+        binarySearchTree.insert(51);
+
+        log.info(binarySearchTree.toString());
     }
 
 }

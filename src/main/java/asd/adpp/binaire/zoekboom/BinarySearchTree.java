@@ -5,7 +5,8 @@ public class BinarySearchTree {
     private Node root;
 
     public void insert(int value) {
-        root = insertValue(root, value);
+        if (this.root == null) this.root = new Node(value);
+        insertValue(root, value);
     }
 
     private Node insertValue(Node root, int value) {
@@ -24,14 +25,12 @@ public class BinarySearchTree {
     }
 
     public Node find(int value) {
-        if (root != null) {
-            return this.findNode(root, value);
-        } else {
-            return null;
-        }
+        return this.findNode(root, value);
     }
 
     private Node findNode(Node root, int value) {
+        if (root == null) return null;
+
         if (value != root.getValue()) {
             if (value < root.getValue()) {
                 root = root.getLeftNode();
@@ -45,40 +44,65 @@ public class BinarySearchTree {
     }
 
     public Node findMin() {
-        if (root != null) {
-            Node node = root;
+        if (root == null) return null;
 
-            while (node != null && node.getLeftNode() != null) {
-                node = node.getLeftNode();
-            }
+        Node node = root;
 
-            return node;
-        } else {
-            return null;
+        while (node != null && node.getLeftNode() != null) {
+            node = node.getLeftNode();
         }
+
+        return node;
     }
 
     public Node findMax() {
-        if (root != null) {
-            Node node = root;
+        if (root == null) return null;
 
-            while (node != null && node.getRightNode() != null) {
-                node = node.getRightNode();
-            }
+        Node node = root;
 
-            return node;
-        } else {
-            return null;
+        while (node != null && node.getRightNode() != null) {
+            node = node.getRightNode();
         }
+
+        return node;
     }
 
     public void remove(int value) {
+        removeNode(root, value);
+    }
 
+    private Node removeNode(Node root, int key) {
+        if (root == null) return null;
+
+        if (key < root.getValue())
+            root.setLeftNode(removeNode(root.getLeftNode(), key));
+        else if (key > root.getValue())
+            root.setRightNode(removeNode(root.getRightNode(), key));
+        else {
+            if (root.getLeftNode() == null)
+                return root.getRightNode();
+            else if (root.getRightNode() == null)
+                return root.getLeftNode();
+
+            root.setValue(minValue(root.getRightNode()));
+            root.setRightNode(removeNode(root.getRightNode(), root.getValue()));
+        }
+
+        return root;
+    }
+
+    private int minValue(Node root) {
+        int minv = root.getValue();
+        while (root.getLeftNode() != null) {
+            minv = root.getLeftNode().getValue();
+            root = root.getLeftNode();
+        }
+        return minv;
     }
 
     @Override
     public String toString() {
-        return this.toString(root);
+        return "ROOT: " + root + " : " + this.toString(root);
     }
 
     private String toString(Node root) {
@@ -89,6 +113,7 @@ public class BinarySearchTree {
             sb.append(" ").append(root);
             sb.append(toString(root.getRightNode()));
         }
+
         return sb.toString();
     }
 

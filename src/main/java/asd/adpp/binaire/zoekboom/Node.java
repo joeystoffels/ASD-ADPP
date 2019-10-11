@@ -2,32 +2,36 @@ package asd.adpp.binaire.zoekboom;
 
 public class Node {
 
-    private final int value;
+    private int value;
 
     private Node leftNode;
     private Node rightNode;
 
-    public Node(int value) {
+    Node(int value) {
         this.value = value;
     }
 
-    public int getValue() {
+    int getValue() {
         return value;
     }
 
-    public Node getLeftNode() {
+    void setValue(int value) {
+        this.value = value;
+    }
+
+    Node getLeftNode() {
         return leftNode;
     }
 
-    public void setLeftNode(Node leftNode) {
+    void setLeftNode(Node leftNode) {
         this.leftNode = leftNode;
     }
 
-    public Node getRightNode() {
+    Node getRightNode() {
         return rightNode;
     }
 
-    public void setRightNode(Node rightNode) {
+    void setRightNode(Node rightNode) {
         this.rightNode = rightNode;
     }
 

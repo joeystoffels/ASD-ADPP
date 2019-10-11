@@ -78,6 +78,11 @@ public class Main {
         log.info("Found: " + binarySearchTree.find(50));
         log.info("Found min: " + binarySearchTree.findMin());
         log.info("Found max: " + binarySearchTree.findMax());
+
+        binarySearchTree.remove(25);
+        binarySearchTree.remove(26);
+
+        log.info("After delete: " + binarySearchTree.toString());
     }
 
 }

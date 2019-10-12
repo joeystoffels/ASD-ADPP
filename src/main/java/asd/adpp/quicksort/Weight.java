@@ -1,10 +1,10 @@
 package asd.adpp.quicksort;
 
-public class IntWrapper implements Comparable<IntWrapper> {
+public class Weight implements Comparable<Weight> {
 
     private final Integer value;
 
-    public IntWrapper(int value) {
+    public Weight(int value) {
         this.value = value;
     }
 
@@ -13,17 +13,17 @@ public class IntWrapper implements Comparable<IntWrapper> {
     }
 
     @Override
-    public int compareTo(IntWrapper o) {
+    public int compareTo(Weight o) {
         return this.value.compareTo(o.getValue());
     }
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof IntWrapper)) {
+        if (!(o instanceof Weight)) {
             return false;
         }
 
-        IntWrapper obj = (IntWrapper) o;
+        Weight obj = (Weight) o;
 
         return obj.value.equals(this.value);
     }

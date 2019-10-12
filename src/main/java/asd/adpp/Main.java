@@ -3,8 +3,8 @@ package asd.adpp;
 import asd.adpp.binaire.zoekboom.BinarySearchTree;
 import asd.adpp.kortste.paden.Dijkstra;
 import asd.adpp.kortste.paden.Graph;
-import asd.adpp.kortste.paden.Node;
-import asd.adpp.quicksort.IntWrapper;
+import asd.adpp.kortste.paden.Vertex;
+import asd.adpp.quicksort.Weight;
 import asd.adpp.quicksort.QuickSort;
 import asd.adpp.quicksort.SortingAlgorithm;
 import asd.adpp.util.SortingUtil;
@@ -23,8 +23,8 @@ public class Main {
     }
 
     private void demoGenericQuickSort() {
-        SortingAlgorithm<IntWrapper> sortingAlgorithm = new QuickSort<>();
-        IntWrapper[] array = SortingUtil.createIntWrapperArray(1, 5, 4, 3);
+        SortingAlgorithm<Weight> sortingAlgorithm = new QuickSort<>();
+        Weight[] array = SortingUtil.createIntWrapperArray(1, 5, 4, 3);
 
         log.info("Before QuickSort: " + Arrays.toString(array));
 
@@ -38,23 +38,23 @@ public class Main {
 
         Graph graph = new Graph();
 
-        Node nodeA = new Node("A");
-        Node nodeB = new Node("B");
-        Node nodeC = new Node("C");
-        Node nodeD = new Node("D");
+        Vertex vertexA = new Vertex("A");
+        Vertex vertexB = new Vertex("B");
+        Vertex vertexC = new Vertex("C");
+        Vertex vertexD = new Vertex("D");
 
-        nodeA.addDestination(nodeB, 50);
-        nodeA.addDestination(nodeC, 25);
-        nodeA.addDestination(nodeD, 10);
+        vertexA.addDestination(vertexB, 50);
+        vertexA.addDestination(vertexC, 25);
+        vertexA.addDestination(vertexD, 10);
 
-        nodeB.addDestination(nodeD, 30);
-        nodeB.addDestination(nodeA, 15);
+        vertexB.addDestination(vertexD, 30);
+        vertexB.addDestination(vertexA, 15);
 
-        nodeC.addDestination(nodeD, 25);
+        vertexC.addDestination(vertexD, 25);
 
-        nodeD.addDestination(nodeA, 5);
+        vertexD.addDestination(vertexA, 5);
 
-        Dijkstra.calculateShortestPathFromSource(nodeA);
+        Dijkstra.calculateShortestPathFromSource(vertexA);
 
 //        log.info();
     }

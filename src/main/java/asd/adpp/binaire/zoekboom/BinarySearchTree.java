@@ -1,5 +1,8 @@
 package asd.adpp.binaire.zoekboom;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BinarySearchTree {
 
     private Node root;
@@ -115,6 +118,22 @@ public class BinarySearchTree {
         }
 
         return sb.toString();
+    }
+
+    public Node getRoot() {
+        return this.root;
+    }
+
+    public List<Node> getAllNodes(Node root){
+        List<Node> list = new ArrayList<>();
+
+        if (root != null) {
+            list.addAll(getAllNodes(root.getLeftNode()));
+            list.add(root);
+            list.addAll(getAllNodes(root.getRightNode()));
+        }
+
+        return list;
     }
 
 }

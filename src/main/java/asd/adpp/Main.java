@@ -73,8 +73,6 @@ public class Main {
         binarySearchTree.insert(51);
         binarySearchTree.insert(1);
 
-        log.info(binarySearchTree.toString());
-
         log.info("Found: " + binarySearchTree.find(50));
         log.info("Found min: " + binarySearchTree.findMin());
         log.info("Found max: " + binarySearchTree.findMax());
@@ -82,7 +80,7 @@ public class Main {
         binarySearchTree.remove(25);
         binarySearchTree.remove(26);
 
-        log.info("After delete: " + binarySearchTree.toString());
+        log.info("After delete: " + binarySearchTree);
     }
 
 }

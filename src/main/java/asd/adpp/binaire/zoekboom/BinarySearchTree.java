@@ -71,16 +71,16 @@ public class BinarySearchTree {
     }
 
     public void remove(int value) {
-        removeNode(root, value);
+        root = removeNode(root, value);
     }
 
-    private Node removeNode(Node root, int key) {
+    private Node removeNode(Node root, int value) {
         if (root == null) return null;
 
-        if (key < root.getValue())
-            root.setLeftNode(removeNode(root.getLeftNode(), key));
-        else if (key > root.getValue())
-            root.setRightNode(removeNode(root.getRightNode(), key));
+        if (value < root.getValue())
+            root.setLeftNode(removeNode(root.getLeftNode(), value));
+        else if (value > root.getValue())
+            root.setRightNode(removeNode(root.getRightNode(), value));
         else {
             if (root.getLeftNode() == null)
                 return root.getRightNode();

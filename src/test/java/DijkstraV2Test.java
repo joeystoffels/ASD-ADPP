@@ -43,6 +43,12 @@ public class DijkstraV2Test {
         for (Vertex vertex : path) {
             System.out.println(vertex);
         }
+
+        System.out.println(dijkstra.getEdges());
+        System.out.println(dijkstra.getNodes());
+        System.out.println(dijkstra.getPredecessors());
+        System.out.println(dijkstra.getSettledNodes());
+        System.out.println(dijkstra.getUnSettledNodes());
     }
 
 }

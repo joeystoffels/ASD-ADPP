@@ -22,8 +22,8 @@ public class DijkstraAlgorithm {
 
     public DijkstraAlgorithm(Graph graph) {
         // create a copy of the array so that we can operate on this array
-        this.nodes = new ArrayList<>(graph.getVertexes());
-        this.edges = new ArrayList<>(graph.getEdges());
+        this.nodes = new LinkedList<>(graph.getVertexes());
+        this.edges = new LinkedList<>(graph.getEdges());
     }
 
     public void execute(Vertex source) {
@@ -130,4 +130,27 @@ public class DijkstraAlgorithm {
         return path;
     }
 
+    public List<Vertex> getNodes() {
+        return nodes;
+    }
+
+    public List<Edge> getEdges() {
+        return edges;
+    }
+
+    public Set<Vertex> getSettledNodes() {
+        return settledNodes;
+    }
+
+    public Set<Vertex> getUnSettledNodes() {
+        return unSettledNodes;
+    }
+
+    public Map<Vertex, Vertex> getPredecessors() {
+        return predecessors;
+    }
+
+    public Map<Vertex, Integer> getDistance() {
+        return distance;
+    }
 }

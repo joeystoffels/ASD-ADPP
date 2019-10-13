@@ -7,7 +7,7 @@ public class Graph {
 
     private Set<Vertex> vertices = new HashSet<>();
 
-    public void addNode(Vertex vertexA) {
+    public void addVertex(Vertex vertexA) {
         vertices.add(vertexA);
     }
 

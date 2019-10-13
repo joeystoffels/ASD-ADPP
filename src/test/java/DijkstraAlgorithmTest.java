@@ -14,7 +14,6 @@ public class DijkstraAlgorithmTest {
 
         @Test
         public void whenSPPSolved_thenCorrect() {
-
             Vertex vertexA = new Vertex("A");
             Vertex vertexB = new Vertex("B");
             Vertex vertexC = new Vertex("C");
@@ -37,12 +36,12 @@ public class DijkstraAlgorithmTest {
 
             Graph graph = new Graph();
 
-            graph.addNode(vertexA);
-            graph.addNode(vertexB);
-            graph.addNode(vertexC);
-            graph.addNode(vertexD);
-            graph.addNode(vertexE);
-            graph.addNode(vertexF);
+            graph.addVertex(vertexA);
+            graph.addVertex(vertexB);
+            graph.addVertex(vertexC);
+            graph.addVertex(vertexD);
+            graph.addVertex(vertexE);
+            graph.addVertex(vertexF);
 
             Dijkstra.calculateShortestPathFromSource(vertexA);
 

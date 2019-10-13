@@ -7,13 +7,12 @@ import java.util.Set;
 
 public class Dijkstra {
 
-    public static void calculateShortestPathFromSource(Vertex source) {
-
-        source.setDistance(0);
+    public static void calculateShortestPathFromSource(Vertex vertex) {
+        vertex.setDistance(0);
 
         Set<Vertex> settledVertices = new HashSet<>();
         Set<Vertex> unsettledVertices = new HashSet<>();
-        unsettledVertices.add(source);
+        unsettledVertices.add(vertex);
 
         while (!unsettledVertices.isEmpty()) {
             Vertex currentVertex = getLowestDistanceNode(unsettledVertices);

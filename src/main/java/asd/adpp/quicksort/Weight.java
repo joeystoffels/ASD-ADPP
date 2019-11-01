@@ -1,5 +1,9 @@
 package asd.adpp.quicksort;
 
+/**
+ * Class that implements Comparable.
+ * For now this class is only used in the tests of the QuickSort algorithm.
+ */
 public class Weight implements Comparable<Weight> {
 
     private final Integer value;

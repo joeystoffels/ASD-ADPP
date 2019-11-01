@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-public class DijkstraAlgorithm {
+public class Dijkstra {
 
     private final List<Vertex> nodes;
     private final List<Edge> edges;
@@ -20,7 +20,7 @@ public class DijkstraAlgorithm {
     private Map<Vertex, Vertex> predecessors;
     private Map<Vertex, Integer> distance;
 
-    public DijkstraAlgorithm(Graph graph) {
+    public Dijkstra(Graph graph) {
         // create a copy of the array so that we can operate on this array
         this.nodes = new LinkedList<>(graph.getVertexes());
         this.edges = new LinkedList<>(graph.getEdges());
@@ -42,13 +42,43 @@ public class DijkstraAlgorithm {
         }
     }
 
+    public int getShortestWeightedPath(Vertex destination) {
+        Integer d = distance.get(destination);
+        return Objects.requireNonNullElse(d, Integer.MAX_VALUE);
+    }
+
+    /*
+     * This method returns the path from the source to the selected target and
+     * NULL if no path exists
+     */
+    public List<Vertex> getShortestUnweightedPath(Vertex target) {
+        LinkedList<Vertex> path = new LinkedList<>();
+        Vertex step = target;
+
+        // check if a path exists
+        if (predecessors.get(step) == null) {
+            return path;
+        }
+
+        path.add(step);
+
+        while (predecessors.get(step) != null) {
+            step = predecessors.get(step);
+            path.add(step);
+        }
+
+        // Put it into the correct order
+        Collections.reverse(path);
+        return path;
+    }
+
     private void findMinimalDistances(Vertex node) {
         List<Vertex> adjacentNodes = getNeighbors(node);
 
         for (Vertex target : adjacentNodes) {
-            if (getShortestDistance(target) > getShortestDistance(node)
+            if (getShortestWeightedPath(target) > getShortestWeightedPath(node)
                     + getDistance(node, target)) {
-                distance.put(target, getShortestDistance(node)
+                distance.put(target, getShortestWeightedPath(node)
                         + getDistance(node, target));
                 predecessors.put(target, node);
                 unSettledNodes.add(target);
@@ -87,7 +117,7 @@ public class DijkstraAlgorithm {
             if (minimum == null) {
                 minimum = vertex;
             } else {
-                if (getShortestDistance(vertex) < getShortestDistance(minimum)) {
+                if (getShortestWeightedPath(vertex) < getShortestWeightedPath(minimum)) {
                     minimum = vertex;
                 }
             }
@@ -98,36 +128,6 @@ public class DijkstraAlgorithm {
 
     private boolean isSettled(Vertex vertex) {
         return settledNodes.contains(vertex);
-    }
-
-    private int getShortestDistance(Vertex destination) {
-        Integer d = distance.get(destination);
-        return Objects.requireNonNullElse(d, Integer.MAX_VALUE);
-    }
-
-    /*
-     * This method returns the path from the source to the selected target and
-     * NULL if no path exists
-     */
-    public List<Vertex> getPath(Vertex target) {
-        LinkedList<Vertex> path = new LinkedList<>();
-        Vertex step = target;
-
-        // check if a path exists
-        if (predecessors.get(step) == null) {
-            return path;
-        }
-
-        path.add(step);
-
-        while (predecessors.get(step) != null) {
-            step = predecessors.get(step);
-            path.add(step);
-        }
-
-        // Put it into the correct order
-        Collections.reverse(path);
-        return path;
     }
 
     public List<Vertex> getNodes() {
@@ -148,9 +148,5 @@ public class DijkstraAlgorithm {
 
     public Map<Vertex, Vertex> getPredecessors() {
         return predecessors;
-    }
-
-    public Map<Vertex, Integer> getDistance() {
-        return distance;
     }
 }

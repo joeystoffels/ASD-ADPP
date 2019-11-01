@@ -2,6 +2,9 @@ package asd.adpp.quicksort;
 
 import java.util.Random;
 
+/**
+ * Generic QuickSort for all classes that implement the Comparable interface
+ */
 public class QuickSort<T extends Comparable<T>> implements SortingAlgorithm<T> {
 
     private T[] array;
@@ -17,6 +20,7 @@ public class QuickSort<T extends Comparable<T>> implements SortingAlgorithm<T> {
     }
 
     private void quickSort(final int startIndex, final int endIndex) {
+        // Random pivot selection
         final int randomIndex = random.nextInt(endIndex - startIndex) + startIndex;
         final T pivot = array[randomIndex];
 

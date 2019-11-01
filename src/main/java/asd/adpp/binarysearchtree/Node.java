@@ -1,4 +1,4 @@
-package asd.adpp.binaire.zoekboom;
+package asd.adpp.binarysearchtree;
 
 public class Node {
 

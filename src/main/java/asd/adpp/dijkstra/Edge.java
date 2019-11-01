@@ -2,13 +2,11 @@
 package asd.adpp.dijkstra;
 
 public class Edge  {
-    private final String id;
     private final Vertex source;
     private final Vertex destination;
     private final int weight;
 
-    public Edge(String id, Vertex source, Vertex destination, int weight) {
-        this.id = id;
+    public Edge(Vertex source, Vertex destination, int weight) {
         this.source = source;
         this.destination = destination;
         this.weight = weight;

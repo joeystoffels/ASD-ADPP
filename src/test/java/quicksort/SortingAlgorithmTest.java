@@ -1,3 +1,5 @@
+package quicksort;
+
 import asd.adpp.quicksort.Weight;
 import asd.adpp.quicksort.QuickSort;
 import asd.adpp.quicksort.SortingAlgorithm;
@@ -9,6 +11,9 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertArrayEquals;
 
+/**
+ * Generic sorting algorithm test class, for now we only have the QuickSort algorithm so each test tests this algorithm
+ */
 @Slf4j
 public class SortingAlgorithmTest {
 

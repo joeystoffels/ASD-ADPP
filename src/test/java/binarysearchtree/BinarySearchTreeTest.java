@@ -1,5 +1,7 @@
-import asd.adpp.binaire.zoekboom.BinarySearchTree;
-import asd.adpp.binaire.zoekboom.Node;
+package binarysearchtree;
+
+import asd.adpp.binarysearchtree.BinarySearchTree;
+import asd.adpp.binarysearchtree.Node;
 import org.junit.Test;
 
 import java.util.ArrayList;

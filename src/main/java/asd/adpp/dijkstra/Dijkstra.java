@@ -18,7 +18,7 @@ public class Dijkstra {
     private Set<Vertex> settledNodes;
     private Set<Vertex> unSettledNodes;
     private Map<Vertex, Vertex> predecessors;
-    private Map<Vertex, Integer> distance;
+    private Map<Vertex, Integer> weight;
 
     public Dijkstra(Graph graph) {
         // create a copy of the array so that we can operate on this array
@@ -29,21 +29,21 @@ public class Dijkstra {
     public void execute(Vertex source) {
         settledNodes = new HashSet<>();
         unSettledNodes = new HashSet<>();
-        distance = new HashMap<>();
+        weight = new HashMap<>();
         predecessors = new HashMap<>();
-        distance.put(source, 0);
+        weight.put(source, 0);
         unSettledNodes.add(source);
 
         while (!unSettledNodes.isEmpty()) {
-            Vertex node = getMinimum(unSettledNodes);
+            Vertex node = getMinimumWeighted(unSettledNodes);
             settledNodes.add(node);
             unSettledNodes.remove(node);
             findMinimalDistances(node);
         }
     }
 
-    public int getShortestWeightedPath(Vertex destination) {
-        Integer d = distance.get(destination);
+    public int getShortestWeightedPathWeight(Vertex destination) {
+        Integer d = weight.get(destination);
         return Objects.requireNonNullElse(d, Integer.MAX_VALUE);
     }
 
@@ -51,7 +51,7 @@ public class Dijkstra {
      * This method returns the path from the source to the selected target and
      * NULL if no path exists
      */
-    public List<Vertex> getShortestUnweightedPath(Vertex target) {
+    public List<Vertex> getShortestWeightedPath(Vertex target) {
         LinkedList<Vertex> path = new LinkedList<>();
         Vertex step = target;
 
@@ -76,17 +76,17 @@ public class Dijkstra {
         List<Vertex> adjacentNodes = getNeighbors(node);
 
         for (Vertex target : adjacentNodes) {
-            if (getShortestWeightedPath(target) > getShortestWeightedPath(node)
-                    + getDistance(node, target)) {
-                distance.put(target, getShortestWeightedPath(node)
-                        + getDistance(node, target));
+            if (getShortestWeightedPathWeight(target) > getShortestWeightedPathWeight(node)
+                    + getWeight(node, target)) {
+                weight.put(target, getShortestWeightedPathWeight(node)
+                        + getWeight(node, target));
                 predecessors.put(target, node);
                 unSettledNodes.add(target);
             }
         }
     }
 
-    private int getDistance(Vertex node, Vertex target) {
+    private int getWeight(Vertex node, Vertex target) {
         for (Edge edge : edges) {
             if (edge.getSource().equals(node)
                     && edge.getDestination().equals(target)) {
@@ -110,14 +110,14 @@ public class Dijkstra {
         return neighbors;
     }
 
-    private Vertex getMinimum(Set<Vertex> vertexes) {
+    private Vertex getMinimumWeighted(Set<Vertex> vertexes) {
         Vertex minimum = null;
 
         for (Vertex vertex : vertexes) {
             if (minimum == null) {
                 minimum = vertex;
             } else {
-                if (getShortestWeightedPath(vertex) < getShortestWeightedPath(minimum)) {
+                if (getShortestWeightedPathWeight(vertex) < getShortestWeightedPathWeight(minimum)) {
                     minimum = vertex;
                 }
             }

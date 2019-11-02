@@ -35,7 +35,7 @@ public class DijkstraTest {
         Dijkstra dijkstra = new Dijkstra(graph);
 
         dijkstra.execute(nodes.get(5));
-        List<Vertex> path = dijkstra.getShortestUnweightedPath(nodes.get(2));
+        List<Vertex> path = dijkstra.getShortestWeightedPath(nodes.get(2));
 
         assertNotNull(path);
         assertTrue(path.size() > 0);

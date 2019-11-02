@@ -45,31 +45,31 @@ public class Main {
         Vertex vertexC = new Vertex("C", "Vertex C");
         Vertex vertexD = new Vertex("D", "Vertex D");
 
-        Edge edgeS = new Edge(source, vertexA, 15);
-        Edge edgeT = new Edge(vertexA, vertexB, 15);
-        Edge edgeU = new Edge(vertexC, vertexB, 5);
-        Edge edgeV = new Edge(vertexD, vertexB, 20);
-        Edge edgeW = new Edge(vertexD, vertexA, 25);
-        Edge edgeX = new Edge(vertexA, vertexC, 1);
-        Edge edgeY = new Edge(vertexC, vertexD, 50);
-        Edge edgeZ = new Edge(vertexA, vertexD, 30);
-
         LinkedList<Vertex> vertices = Stream.of(source, vertexA, vertexB, vertexC, vertexD)
                 .collect(Collectors.toCollection(LinkedList::new));
 
-        LinkedList<Edge> edges = Stream.of(edgeS, edgeT, edgeU, edgeV, edgeW, edgeX, edgeY, edgeZ)
-                .collect(Collectors.toCollection(LinkedList::new));
+        LinkedList<Edge> edges = new LinkedList<>();
+
+        edges.add(new Edge(source, vertexA, 15));
+        edges.add(new Edge(source, vertexC, 17));
+//        edges.add(new Edge(vertexA, vertexB, 15));
+//        edges.add(new Edge(vertexC, vertexB, 5));
+//        edges.add(new Edge(vertexD, vertexB, 20));
+//        edges.add(new Edge(vertexD, vertexA, 25));
+        edges.add(new Edge(vertexA, vertexC, 1));
+//        edges.add(new Edge(vertexC, vertexD, 50));
+//        edges.add(new Edge(vertexA, vertexD, 30));
 
         Graph graph = new Graph(vertices, edges);
         Dijkstra dijkstra = new Dijkstra(graph);
 
         dijkstra.execute(source);
 
-        List<Vertex> unweightedPath = dijkstra.getShortestUnweightedPath(vertexD);
-        int weightedPath = dijkstra.getShortestWeightedPath(vertexD);
+        List<Vertex> shortestWeightedPath = dijkstra.getShortestWeightedPath(vertexC);
+        int shortestWeightedPathWeight = dijkstra.getShortestWeightedPathWeight(vertexC);
 
-        log.info(String.valueOf(unweightedPath));
-        log.info(String.valueOf(weightedPath));
+        log.info(String.valueOf(shortestWeightedPath));
+        log.info(String.valueOf(shortestWeightedPathWeight));
     }
 
     private void demoBinarySearchTree() {

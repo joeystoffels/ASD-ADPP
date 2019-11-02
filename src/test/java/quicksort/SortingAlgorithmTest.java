@@ -18,7 +18,7 @@ import static org.junit.Assert.assertArrayEquals;
 public class SortingAlgorithmTest {
 
     @Test
-    public void emptyArray() {
+    public void testEmptyArray() {
         Weight[] array = {};
         Weight[] expected = {};
 
@@ -26,7 +26,7 @@ public class SortingAlgorithmTest {
     }
 
     @Test
-    public void smallArray() {
+    public void testSmallArray() {
         Weight[] array = SortingUtil.createIntWrapperArray(5, 4);
         Weight[] expected = SortingUtil.createIntWrapperArray(4, 5);
 
@@ -34,7 +34,7 @@ public class SortingAlgorithmTest {
     }
 
     @Test
-    public void arrayWithDoubleValues() {
+    public void testArrayWithDoubleValues() {
         Weight[] array = SortingUtil.createIntWrapperArray(3, 3, 2, 5, 3, 1, 5, 4, 3, 2, 1);
         Weight[] expected = SortingUtil.createIntWrapperArray(1, 1, 2, 2, 3, 3, 3, 3, 4, 5, 5);
 
@@ -42,7 +42,7 @@ public class SortingAlgorithmTest {
     }
 
     @Test
-    public void reversedSorted() {
+    public void testReversedSorted() {
         Weight[] array = SortingUtil.createIntWrapperArray(10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0);
         Weight[] expected = SortingUtil.createIntWrapperArray(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
 
@@ -50,7 +50,7 @@ public class SortingAlgorithmTest {
     }
 
     @Test
-    public void negativeValues() {
+    public void testNegativeValues() {
         Weight[] array = SortingUtil.createIntWrapperArray(-3, -5, -1, -9, -4);
         Weight[] expected = SortingUtil.createIntWrapperArray(-9, -5, -4, -3, -1);
 
@@ -58,7 +58,7 @@ public class SortingAlgorithmTest {
     }
 
     @Test
-    public void negativeAndPositiveValues() {
+    public void testNegativeAndPositiveValues() {
         Weight[] array = SortingUtil.createIntWrapperArray(-2, 5, -7, 3, 1, 0, -3);
         Weight[] expected = SortingUtil.createIntWrapperArray(-7, -3, -2, 0, 1, 3, 5);
 
@@ -66,7 +66,7 @@ public class SortingAlgorithmTest {
     }
 
     @Test
-    public void sameValues() {
+    public void testSameValues() {
         Weight[] array = SortingUtil.createIntWrapperArray(5, 5, 5, 5);
         Weight[] expected = SortingUtil.createIntWrapperArray(5, 5, 5, 5);
 

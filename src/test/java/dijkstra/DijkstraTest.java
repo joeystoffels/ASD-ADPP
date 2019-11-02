@@ -8,47 +8,125 @@ import org.junit.Test;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class DijkstraTest {
 
     @Test
-    public void testExcute() {
-        LinkedList<Vertex> nodes = new LinkedList<>();
+    public void testShortestWeighted() {
+        Vertex source = new Vertex("Source", "Source");
+        Vertex vertexA = new Vertex("A", "Vertex A");
+        Vertex vertexB = new Vertex("B", "Vertex B");
+
+        LinkedList<Vertex> vertices = Stream.of(source, vertexA, vertexB)
+                .collect(Collectors.toCollection(LinkedList::new));
+
         LinkedList<Edge> edges = new LinkedList<>();
 
-        for (int i = 0; i <= 5; i++) {
-            Vertex location = new Vertex("Node_" + i, "Node_" + i);
-            nodes.add(location);
-        }
+        edges.add(new Edge(source, vertexA, 15));
+        edges.add(new Edge(source, vertexB, 17));
+        edges.add(new Edge(vertexA, vertexB, 1));
 
-        edges.add(new Edge(nodes.get(0), nodes.get(1), 85));
-        edges.add(new Edge(nodes.get(2), nodes.get(1), 60));
-        edges.add(new Edge(nodes.get(2), nodes.get(4), 40));
-        edges.add(new Edge(nodes.get(3), nodes.get(1), 25));
-        edges.add(new Edge(nodes.get(5), nodes.get(2), 55));
-
-        // Lets check from location Loc_1 to Loc_10
-        Graph graph = new Graph(nodes, edges);
+        Graph graph = new Graph(vertices, edges);
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        dijkstra.execute(nodes.get(5));
-        List<Vertex> path = dijkstra.getShortestWeightedPath(nodes.get(2));
+        dijkstra.executeWeighted(source);
 
-        assertNotNull(path);
-        assertTrue(path.size() > 0);
+        List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexB);
+        int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexB);
 
-        for (Vertex vertex : path) {
-            System.out.println(vertex);
-        }
-
-        System.out.println(dijkstra.getEdges());
-        System.out.println(dijkstra.getNodes());
-        System.out.println(dijkstra.getPredecessors());
-        System.out.println(dijkstra.getSettledNodes());
-        System.out.println(dijkstra.getUnSettledNodes());
+        assertThat(shortestWeightedPath.contains(source), is(true));
+        assertThat(shortestWeightedPath.contains(vertexA), is(true));
+        assertThat(shortestWeightedPath.contains(vertexB), is(true));
+        assertThat(shortestWeightedPath.size(), is(3));
+        assertThat(shortestWeightedPathWeight, is(16));
     }
+
+    @Test
+    public void testShortestWeightedWithNegativeWeigths() {
+        Vertex source = new Vertex("Source", "Source");
+        Vertex vertexA = new Vertex("A", "Vertex A");
+        Vertex vertexB = new Vertex("B", "Vertex B");
+
+        LinkedList<Vertex> vertices = Stream.of(source, vertexA, vertexB)
+                .collect(Collectors.toCollection(LinkedList::new));
+
+        LinkedList<Edge> edges = new LinkedList<>();
+
+        edges.add(new Edge(source, vertexA, 15));
+        edges.add(new Edge(source, vertexB, -17));
+        edges.add(new Edge(vertexA, vertexB, -1));
+
+        Graph graph = new Graph(vertices, edges);
+        Dijkstra dijkstra = new Dijkstra(graph);
+
+        dijkstra.executeWeighted(source);
+
+        List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexB);
+        int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexB);
+
+        assertThat(shortestWeightedPath.contains(source), is(true));
+        assertThat(shortestWeightedPath.contains(vertexB), is(true));
+        assertThat(shortestWeightedPath.size(), is(2));
+        assertThat(shortestWeightedPathWeight, is(-17));
+    }
+
+    @Test
+    public void testShortestUnweighted() {
+        Vertex source = new Vertex("Source", "Source");
+        Vertex vertexA = new Vertex("A", "Vertex A");
+        Vertex vertexB = new Vertex("B", "Vertex B");
+
+        LinkedList<Vertex> vertices = Stream.of(source, vertexA, vertexB)
+                .collect(Collectors.toCollection(LinkedList::new));
+
+        LinkedList<Edge> edges = new LinkedList<>();
+
+        edges.add(new Edge(source, vertexA, 15));
+        edges.add(new Edge(source, vertexB, 17));
+        edges.add(new Edge(vertexA, vertexB, 1));
+
+        Graph graph = new Graph(vertices, edges);
+        Dijkstra dijkstra = new Dijkstra(graph);
+
+        dijkstra.executeUnweighted(source);
+
+        List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexB);
+        int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexB);
+
+        assertThat(shortestWeightedPath.contains(source), is(true));
+        assertThat(shortestWeightedPath.contains(vertexB), is(true));
+        assertThat(shortestWeightedPath.size(), is(2));
+        assertThat(shortestWeightedPathWeight, is(0));
+    }
+
+    @Test
+    public void testWithNoEdges() {
+        Vertex source = new Vertex("Source", "Source");
+        Vertex vertexA = new Vertex("A", "Vertex A");
+        Vertex vertexB = new Vertex("B", "Vertex B");
+
+        LinkedList<Vertex> vertices = Stream.of(source, vertexA, vertexB)
+                .collect(Collectors.toCollection(LinkedList::new));
+
+        LinkedList<Edge> edges = new LinkedList<>();
+
+        Graph graph = new Graph(vertices, edges);
+        Dijkstra dijkstra = new Dijkstra(graph);
+
+        dijkstra.executeWeighted(source);
+
+        List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexB);
+        int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexB);
+
+        assertThat(shortestWeightedPath.isEmpty(), is(true));
+        assertThat(shortestWeightedPathWeight, is(Integer.MAX_VALUE));
+    }
+
+
 
 }

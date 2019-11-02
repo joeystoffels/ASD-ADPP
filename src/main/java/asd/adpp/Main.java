@@ -39,7 +39,7 @@ public class Main {
     }
 
     private void demoDijkstra() {
-        Vertex source = new Vertex("source", "source");
+        Vertex source = new Vertex("Source", "Source");
         Vertex vertexA = new Vertex("A", "Vertex A");
         Vertex vertexB = new Vertex("B", "Vertex B");
         Vertex vertexC = new Vertex("C", "Vertex C");
@@ -50,23 +50,23 @@ public class Main {
 
         LinkedList<Edge> edges = new LinkedList<>();
 
-        edges.add(new Edge(source, vertexA, 15));
-        edges.add(new Edge(source, vertexC, 17));
+        edges.add(new Edge(source, vertexA, 0));
+        edges.add(new Edge(source, vertexC, 0));
 //        edges.add(new Edge(vertexA, vertexB, 15));
 //        edges.add(new Edge(vertexC, vertexB, 5));
 //        edges.add(new Edge(vertexD, vertexB, 20));
 //        edges.add(new Edge(vertexD, vertexA, 25));
-        edges.add(new Edge(vertexA, vertexC, 1));
+        edges.add(new Edge(vertexA, vertexC, 0));
 //        edges.add(new Edge(vertexC, vertexD, 50));
 //        edges.add(new Edge(vertexA, vertexD, 30));
 
         Graph graph = new Graph(vertices, edges);
         Dijkstra dijkstra = new Dijkstra(graph);
 
-        dijkstra.execute(source);
+        dijkstra.executeWeighted(source);
 
-        List<Vertex> shortestWeightedPath = dijkstra.getShortestWeightedPath(vertexC);
-        int shortestWeightedPathWeight = dijkstra.getShortestWeightedPathWeight(vertexC);
+        List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexC);
+        int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexC);
 
         log.info(String.valueOf(shortestWeightedPath));
         log.info(String.valueOf(shortestWeightedPathWeight));

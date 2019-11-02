@@ -1,10 +1,9 @@
-// https://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html#shortestpath_graphproblems
 package asd.adpp.dijkstra;
 
 public class Edge  {
     private final Vertex source;
     private final Vertex destination;
-    private final int weight;
+    private int weight;
 
     public Edge(Vertex source, Vertex destination, int weight) {
         this.source = source;
@@ -22,6 +21,10 @@ public class Edge  {
 
     int getWeight() {
         return weight;
+    }
+
+    void setWeight(int weight) {
+        this.weight = weight;
     }
 
     @Override

@@ -1,4 +1,3 @@
-// https://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html#shortestpath_graphproblems
 package asd.adpp.dijkstra;
 
 public class Vertex {

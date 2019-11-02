@@ -1,4 +1,3 @@
-// https://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html#shortestpath_graphproblems
 package asd.adpp.dijkstra;
 
 import java.util.ArrayList;
@@ -11,47 +10,34 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
+/**
+ * Dijkstra algorithm based on the following source:
+ * https://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html#shortestpath_graphproblems
+ */
 public class Dijkstra {
 
-    private final List<Vertex> nodes;
+    private final List<Vertex> vertices;
     private final List<Edge> edges;
-    private Set<Vertex> settledNodes;
-    private Set<Vertex> unSettledNodes;
+    private Set<Vertex> settledVertices;
+    private Set<Vertex> unsettledVertices;
     private Map<Vertex, Vertex> predecessors;
-    private Map<Vertex, Integer> weight;
+    private Map<Vertex, Integer> verticesWeights;
 
     public Dijkstra(Graph graph) {
         // create a copy of the array so that we can operate on this array
-        this.nodes = new LinkedList<>(graph.getVertexes());
-        this.edges = new LinkedList<>(graph.getEdges());
+        this.vertices = graph.getVertices();
+        this.edges = graph.getEdges();
     }
 
-    public void execute(Vertex source) {
-        settledNodes = new HashSet<>();
-        unSettledNodes = new HashSet<>();
-        weight = new HashMap<>();
-        predecessors = new HashMap<>();
-        weight.put(source, 0);
-        unSettledNodes.add(source);
-
-        while (!unSettledNodes.isEmpty()) {
-            Vertex node = getMinimumWeighted(unSettledNodes);
-            settledNodes.add(node);
-            unSettledNodes.remove(node);
-            findMinimalDistances(node);
-        }
+    public void executeWeighted(Vertex source) {
+        this.execute(source, false);
     }
 
-    public int getShortestWeightedPathWeight(Vertex destination) {
-        Integer d = weight.get(destination);
-        return Objects.requireNonNullElse(d, Integer.MAX_VALUE);
+    public void executeUnweighted(Vertex source) {
+        this.execute(source, true);
     }
 
-    /*
-     * This method returns the path from the source to the selected target and
-     * NULL if no path exists
-     */
-    public List<Vertex> getShortestWeightedPath(Vertex target) {
+    public List<Vertex> getShortestPath(Vertex target) {
         LinkedList<Vertex> path = new LinkedList<>();
         Vertex step = target;
 
@@ -72,23 +58,50 @@ public class Dijkstra {
         return path;
     }
 
-    private void findMinimalDistances(Vertex node) {
-        List<Vertex> adjacentNodes = getNeighbors(node);
+    public int getShortestPathWeight(Vertex destination) {
+        Integer d = verticesWeights.get(destination);
+        return Objects.requireNonNullElse(d, Integer.MAX_VALUE);
+    }
 
-        for (Vertex target : adjacentNodes) {
-            if (getShortestWeightedPathWeight(target) > getShortestWeightedPathWeight(node)
-                    + getWeight(node, target)) {
-                weight.put(target, getShortestWeightedPathWeight(node)
-                        + getWeight(node, target));
-                predecessors.put(target, node);
-                unSettledNodes.add(target);
+    private void execute(Vertex source, boolean unweighted) {
+        settledVertices = new HashSet<>();
+        unsettledVertices = new HashSet<>();
+        verticesWeights = new HashMap<>();
+        predecessors = new HashMap<>();
+        verticesWeights.put(source, 0);
+        unsettledVertices.add(source);
+
+        if (unweighted) {
+            for (Edge edge : edges) {
+                edge.setWeight(0);
+            }
+        }
+
+        while (!unsettledVertices.isEmpty()) {
+            Vertex vertex = getMinimum(unsettledVertices);
+            settledVertices.add(vertex);
+            unsettledVertices.remove(vertex);
+            findMinimalDistances(vertex);
+        }
+
+    }
+
+    private void findMinimalDistances(Vertex vertex) {
+        List<Vertex> adjacentVertices = getNeighbors(vertex);
+
+        for (Vertex target : adjacentVertices) {
+            if (getShortestPathWeight(target) >
+                    getShortestPathWeight(vertex) + getWeight(vertex, target)) {
+                verticesWeights.put(target, getShortestPathWeight(vertex) + getWeight(vertex, target));
+                predecessors.put(target, vertex);
+                unsettledVertices.add(target);
             }
         }
     }
 
-    private int getWeight(Vertex node, Vertex target) {
+    private int getWeight(Vertex vertex, Vertex target) {
         for (Edge edge : edges) {
-            if (edge.getSource().equals(node)
+            if (edge.getSource().equals(vertex)
                     && edge.getDestination().equals(target)) {
                 return edge.getWeight();
             }
@@ -97,12 +110,12 @@ public class Dijkstra {
         throw new RuntimeException("Should not happen");
     }
 
-    private List<Vertex> getNeighbors(Vertex node) {
+    private List<Vertex> getNeighbors(Vertex vertex) {
         List<Vertex> neighbors = new ArrayList<>();
 
         for (Edge edge : edges) {
-            if (edge.getSource().equals(node)
-                    && !isSettled(edge.getDestination())) {
+            if (edge.getSource().equals(vertex)
+                    && !settledVertices.contains(edge.getDestination())) {
                 neighbors.add(edge.getDestination());
             }
         }
@@ -110,14 +123,14 @@ public class Dijkstra {
         return neighbors;
     }
 
-    private Vertex getMinimumWeighted(Set<Vertex> vertexes) {
+    private Vertex getMinimum(Set<Vertex> vertexes) {
         Vertex minimum = null;
 
         for (Vertex vertex : vertexes) {
             if (minimum == null) {
                 minimum = vertex;
             } else {
-                if (getShortestWeightedPathWeight(vertex) < getShortestWeightedPathWeight(minimum)) {
+                if (getShortestPathWeight(vertex) < getShortestPathWeight(minimum)) {
                     minimum = vertex;
                 }
             }
@@ -126,27 +139,6 @@ public class Dijkstra {
         return minimum;
     }
 
-    private boolean isSettled(Vertex vertex) {
-        return settledNodes.contains(vertex);
-    }
 
-    public List<Vertex> getNodes() {
-        return nodes;
-    }
 
-    public List<Edge> getEdges() {
-        return edges;
-    }
-
-    public Set<Vertex> getSettledNodes() {
-        return settledNodes;
-    }
-
-    public Set<Vertex> getUnSettledNodes() {
-        return unSettledNodes;
-    }
-
-    public Map<Vertex, Vertex> getPredecessors() {
-        return predecessors;
-    }
 }

@@ -16,7 +16,6 @@ import java.util.Set;
  */
 public class Dijkstra {
 
-    private final List<Vertex> vertices;
     private final List<Edge> edges;
     private Set<Vertex> settledVertices;
     private Set<Vertex> unsettledVertices;
@@ -25,7 +24,6 @@ public class Dijkstra {
 
     public Dijkstra(Graph graph) {
         // create a copy of the array so that we can operate on this array
-        this.vertices = graph.getVertices();
         this.edges = graph.getEdges();
     }
 

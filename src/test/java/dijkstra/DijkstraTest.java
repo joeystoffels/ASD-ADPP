@@ -11,13 +11,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class DijkstraTest {
 
     @Test
-    public void testShortestWeighted() {
+    public void shortestWeighted() {
         Vertex source = new Vertex("Source", "Source");
         Vertex vertexA = new Vertex("A", "Vertex A");
         Vertex vertexB = new Vertex("B", "Vertex B");
@@ -39,15 +39,15 @@ public class DijkstraTest {
         List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexB);
         int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexB);
 
-        assertThat(shortestWeightedPath.contains(source), is(true));
-        assertThat(shortestWeightedPath.contains(vertexA), is(true));
-        assertThat(shortestWeightedPath.contains(vertexB), is(true));
-        assertThat(shortestWeightedPath.size(), is(3));
-        assertThat(shortestWeightedPathWeight, is(16));
+        assertTrue(shortestWeightedPath.contains(source));
+        assertTrue(shortestWeightedPath.contains(vertexA));
+        assertTrue(shortestWeightedPath.contains(vertexB));
+        assertEquals(3, shortestWeightedPath.size());
+        assertEquals(16, shortestWeightedPathWeight);
     }
 
     @Test
-    public void testShortestWeightedWithNegativeWeigths() {
+    public void shortestWeightedWithNegativeWeigths() {
         Vertex source = new Vertex("Source", "Source");
         Vertex vertexA = new Vertex("A", "Vertex A");
         Vertex vertexB = new Vertex("B", "Vertex B");
@@ -69,14 +69,14 @@ public class DijkstraTest {
         List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexB);
         int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexB);
 
-        assertThat(shortestWeightedPath.contains(source), is(true));
-        assertThat(shortestWeightedPath.contains(vertexB), is(true));
-        assertThat(shortestWeightedPath.size(), is(2));
-        assertThat(shortestWeightedPathWeight, is(-17));
+        assertTrue(shortestWeightedPath.contains(source));
+        assertTrue(shortestWeightedPath.contains(vertexB));
+        assertEquals(2, shortestWeightedPath.size());
+        assertEquals(-17, shortestWeightedPathWeight);
     }
 
     @Test
-    public void testShortestUnweighted() {
+    public void shortestUnweighted() {
         Vertex source = new Vertex("Source", "Source");
         Vertex vertexA = new Vertex("A", "Vertex A");
         Vertex vertexB = new Vertex("B", "Vertex B");
@@ -98,14 +98,14 @@ public class DijkstraTest {
         List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexB);
         int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexB);
 
-        assertThat(shortestWeightedPath.contains(source), is(true));
-        assertThat(shortestWeightedPath.contains(vertexB), is(true));
-        assertThat(shortestWeightedPath.size(), is(2));
-        assertThat(shortestWeightedPathWeight, is(0));
+        assertTrue(shortestWeightedPath.contains(source));
+        assertTrue(shortestWeightedPath.contains(vertexB));
+        assertEquals(2, shortestWeightedPath.size());
+        assertEquals(0, shortestWeightedPathWeight);
     }
 
     @Test
-    public void testWithNoEdges() {
+    public void graphWithNoEdges() {
         Vertex source = new Vertex("Source", "Source");
         Vertex vertexA = new Vertex("A", "Vertex A");
         Vertex vertexB = new Vertex("B", "Vertex B");
@@ -123,10 +123,9 @@ public class DijkstraTest {
         List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexB);
         int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexB);
 
-        assertThat(shortestWeightedPath.isEmpty(), is(true));
-        assertThat(shortestWeightedPathWeight, is(Integer.MAX_VALUE));
+        assertTrue(shortestWeightedPath.isEmpty());
+        assertEquals(Integer.MAX_VALUE, shortestWeightedPathWeight);
     }
-
 
 
 }

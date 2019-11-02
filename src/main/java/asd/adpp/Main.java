@@ -9,7 +9,6 @@ import asd.adpp.quicksort.QuickSort;
 import asd.adpp.quicksort.SortingAlgorithm;
 import asd.adpp.quicksort.Weight;
 import asd.adpp.util.SortingUtil;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -17,25 +16,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-@Slf4j
 public class Main {
 
     public static void main(String... args) {
         Main main = new Main();
-//        main.demoGenericQuickSort();
+        main.demoGenericQuickSort();
         main.demoDijkstra();
-//        main.demoBinarySearchTree();
+        main.demoBinarySearchTree();
     }
 
     private void demoGenericQuickSort() {
         SortingAlgorithm<Weight> sortingAlgorithm = new QuickSort<>();
         Weight[] array = SortingUtil.createIntWrapperArray(1, 5, 4, 3);
 
-        log.info("Before QuickSort: " + Arrays.toString(array));
+        System.out.println("Before QuickSort: " + Arrays.toString(array));
 
         sortingAlgorithm.sort(array);
 
-        log.info("After QuickSort : " + Arrays.toString(array));
+        System.out.println("After QuickSort : " + Arrays.toString(array));
     }
 
     private void demoDijkstra() {
@@ -52,13 +50,13 @@ public class Main {
 
         edges.add(new Edge(source, vertexA, 0));
         edges.add(new Edge(source, vertexC, 0));
-//        edges.add(new Edge(vertexA, vertexB, 15));
-//        edges.add(new Edge(vertexC, vertexB, 5));
-//        edges.add(new Edge(vertexD, vertexB, 20));
-//        edges.add(new Edge(vertexD, vertexA, 25));
+        edges.add(new Edge(vertexA, vertexB, 15));
+        edges.add(new Edge(vertexC, vertexB, 5));
+        edges.add(new Edge(vertexD, vertexB, 20));
+        edges.add(new Edge(vertexD, vertexA, 25));
         edges.add(new Edge(vertexA, vertexC, 0));
-//        edges.add(new Edge(vertexC, vertexD, 50));
-//        edges.add(new Edge(vertexA, vertexD, 30));
+        edges.add(new Edge(vertexC, vertexD, 50));
+        edges.add(new Edge(vertexA, vertexD, 30));
 
         Graph graph = new Graph(vertices, edges);
         Dijkstra dijkstra = new Dijkstra(graph);
@@ -68,8 +66,8 @@ public class Main {
         List<Vertex> shortestWeightedPath = dijkstra.getShortestPath(vertexC);
         int shortestWeightedPathWeight = dijkstra.getShortestPathWeight(vertexC);
 
-        log.info(String.valueOf(shortestWeightedPath));
-        log.info(String.valueOf(shortestWeightedPathWeight));
+        System.out.println(shortestWeightedPath);
+        System.out.println(shortestWeightedPathWeight);
     }
 
     private void demoBinarySearchTree() {
@@ -86,14 +84,14 @@ public class Main {
         binarySearchTree.insert(51);
         binarySearchTree.insert(1);
 
-        log.info("Found: " + binarySearchTree.find(50));
-        log.info("Found min: " + binarySearchTree.findMin());
-        log.info("Found max: " + binarySearchTree.findMax());
+        System.out.println("Found: " + binarySearchTree.find(50));
+        System.out.println("Found min: " + binarySearchTree.findMin());
+        System.out.println("Found max: " + binarySearchTree.findMax());
 
         binarySearchTree.remove(25);
         binarySearchTree.remove(26);
 
-        log.info("After delete: " + binarySearchTree);
+        System.out.println("After delete: " + binarySearchTree);
     }
 
 }

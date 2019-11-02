@@ -31,21 +31,6 @@ public class BinarySearchTree {
         return this.findNode(root, value);
     }
 
-    private Node findNode(Node root, int value) {
-        if (root == null) return null;
-
-        if (value != root.getValue()) {
-            if (value < root.getValue()) {
-                root = root.getLeftNode();
-            } else {
-                root = root.getRightNode();
-            }
-            return findNode(root, value);
-        } else {
-            return root;
-        }
-    }
-
     public Node findMin() {
         if (root == null) return null;
 
@@ -72,6 +57,26 @@ public class BinarySearchTree {
 
     public void remove(int value) {
         root = removeNode(root, value);
+    }
+
+    @Override
+    public String toString() {
+        return "ROOT: " + root + " : " + this.toString(root);
+    }
+
+    private Node findNode(Node root, int value) {
+        if (root == null) return null;
+
+        if (value != root.getValue()) {
+            if (value < root.getValue()) {
+                root = root.getLeftNode();
+            } else {
+                root = root.getRightNode();
+            }
+            return findNode(root, value);
+        } else {
+            return root;
+        }
     }
 
     private Node removeNode(Node root, int value) {
@@ -103,11 +108,6 @@ public class BinarySearchTree {
         return minv;
     }
 
-    @Override
-    public String toString() {
-        return "ROOT: " + root + " : " + this.toString(root);
-    }
-
     private String toString(Node root) {
         StringBuilder sb = new StringBuilder();
 
@@ -120,10 +120,6 @@ public class BinarySearchTree {
         return sb.toString();
     }
 
-    public Node getRoot() {
-        return this.root;
-    }
-
     public List<Node> getAllNodes(Node root){
         List<Node> list = new ArrayList<>();
 
@@ -134,6 +130,10 @@ public class BinarySearchTree {
         }
 
         return list;
+    }
+
+    public Node getRoot() {
+        return this.root;
     }
 
 }

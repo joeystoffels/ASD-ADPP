@@ -1,8 +1,6 @@
-package quicksort;
+package asd.adpp.quicksort;
 
-import asd.adpp.quicksort.QuickSort;
-import asd.adpp.quicksort.SortingAlgorithm;
-import asd.adpp.quicksort.Weight;
+import asd.adpp.BaseUnitTest;
 import asd.adpp.util.SortingUtil;
 import org.junit.Test;
 
@@ -13,7 +11,7 @@ import static org.junit.Assert.assertArrayEquals;
 /**
  * Generic sorting algorithm test class, for now we only have the QuickSort algorithm so each test tests this algorithm
  */
-public class SortingAlgorithmTest {
+public class SortingAlgorithmTest extends BaseUnitTest {
 
     @Test
     public void emptyArray() {

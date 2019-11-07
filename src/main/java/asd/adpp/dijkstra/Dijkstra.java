@@ -137,6 +137,7 @@ public class Dijkstra {
         return minimum;
     }
 
-
-
+    public Map<Vertex, Integer> getVerticesWeights() {
+        return verticesWeights;
+    }
 }

@@ -1,7 +1,6 @@
-package binarysearchtree;
+package asd.adpp.binarysearchtree;
 
-import asd.adpp.binarysearchtree.BinarySearchTree;
-import asd.adpp.binarysearchtree.Node;
+import asd.adpp.BaseUnitTest;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,14 +10,19 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-public class BinarySearchTreeTest {
+public class BinarySearchTreeTest extends BaseUnitTest {
 
     @Test
     public void insertRootInNewTree() {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
 
+        System.out.println("Before insert: " + binarySearchTree.getRoot());
+
         binarySearchTree.insert(1);
         Node expectedNode = new Node(1);
+
+        System.out.println("After insert: " + binarySearchTree.getRoot());
+        System.out.println("Expected: " + expectedNode);
 
         assertEquals(expectedNode, binarySearchTree.getRoot());
     }
@@ -47,8 +51,15 @@ public class BinarySearchTreeTest {
         binarySearchTree.insert(5);
         binarySearchTree.insert(4);
 
-        assertEquals(node1, binarySearchTree.getRoot());
-        assertEquals(expectedNodes, binarySearchTree.getAllNodes(binarySearchTree.getRoot()));
+        Node rootNode = binarySearchTree.getRoot();
+        List<Node> allNodes = binarySearchTree.getAllNodes(rootNode);
+
+        System.out.println("Before insert: " + rootNode);
+        System.out.println("After insert: " + allNodes);
+        System.out.println("Expected: " + expectedNodes);
+
+        assertEquals(node1, rootNode);
+        assertEquals(expectedNodes, allNodes);
     }
 
     @Test
@@ -63,6 +74,9 @@ public class BinarySearchTreeTest {
 
         Node expectedNode = new Node(3);
         Node foundNode = binarySearchTree.find(3);
+
+        System.out.println("Found node: " + foundNode);
+        System.out.println("Expected: " + expectedNode);
 
         assertEquals(expectedNode, foundNode);
     }
@@ -80,6 +94,9 @@ public class BinarySearchTreeTest {
         Node expectedNode = new Node(1);
         Node foundNode = binarySearchTree.findMin();
 
+        System.out.println("Found node: " + foundNode);
+        System.out.println("Expected: " + expectedNode);
+
         assertEquals(expectedNode, foundNode);
     }
 
@@ -96,11 +113,14 @@ public class BinarySearchTreeTest {
         Node expectedNode = new Node(5);
         Node foundNode = binarySearchTree.findMax();
 
+        System.out.println("Found node: " + foundNode);
+        System.out.println("Expected: " + expectedNode);
+
         assertEquals(expectedNode, foundNode);
     }
 
     @Test
-    public void removeChildNodes() {
+    public void removeChildNodesExceptRoot() {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
 
         binarySearchTree.insert(1);
@@ -108,6 +128,8 @@ public class BinarySearchTreeTest {
         binarySearchTree.insert(2);
         binarySearchTree.insert(5);
         binarySearchTree.insert(4);
+
+        System.out.println("Before remove: " + binarySearchTree.getAllNodes(binarySearchTree.getRoot()));
 
         Node expectedNode = new Node(5);
         Node foundNode = binarySearchTree.find(5);
@@ -132,10 +154,12 @@ public class BinarySearchTreeTest {
 
         foundNode = binarySearchTree.find(1);
         assertEquals(new Node(1), foundNode);
+
+        System.out.println("After remove: " + binarySearchTree.getAllNodes(binarySearchTree.getRoot()));
     }
 
     @Test
-    public void removeRootNodes() {
+    public void removeRootNodesExceptLastRootNode() {
         BinarySearchTree binarySearchTree = new BinarySearchTree();
 
         binarySearchTree.insert(3);
@@ -143,6 +167,8 @@ public class BinarySearchTreeTest {
         binarySearchTree.insert(2);
         binarySearchTree.insert(5);
         binarySearchTree.insert(4);
+
+        System.out.println("Before remove: " + binarySearchTree.getAllNodes(binarySearchTree.getRoot()));
 
         Node expectedRootNode = new Node(3);
         Node actualRootNode = binarySearchTree.getRoot();
@@ -171,6 +197,8 @@ public class BinarySearchTreeTest {
         expectedRootNode = new Node(2);
         actualRootNode = binarySearchTree.getRoot();
         assertEquals(expectedRootNode, actualRootNode);
+
+        System.out.println("After remove: " + binarySearchTree.getAllNodes(binarySearchTree.getRoot()));
     }
 
 }

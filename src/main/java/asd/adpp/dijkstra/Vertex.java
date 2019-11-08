@@ -1,12 +1,24 @@
 package asd.adpp.dijkstra;
 
+import java.util.LinkedList;
+
 public class Vertex {
     private final String id;
     private final String name;
 
+    private LinkedList<Edge> edges = new LinkedList<>();
+
     public Vertex(String id, String name) {
         this.id = id;
         this.name = name;
+    }
+
+    public LinkedList<Edge> getEdges() {
+        return edges;
+    }
+
+    public void addEdge(Edge edge) {
+        this.edges.add(edge);
     }
 
     @Override

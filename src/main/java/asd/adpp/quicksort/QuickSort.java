@@ -3,7 +3,7 @@ package asd.adpp.quicksort;
 import java.util.Random;
 
 /**
- * Generic QuickSort for all classes that implement the Comparable interface
+ * Generic QuickSort voor alle klassen die de Comparable interface implementeren.
  */
 public class QuickSort<T extends Comparable<T>> implements SortingAlgorithm<T> {
 

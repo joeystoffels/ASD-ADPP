@@ -11,20 +11,23 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * Dijkstra algorithm based on the following source:
+ * Dijkstra algorithm gebaseerd op de volgende bron:
  * https://www.vogella.com/tutorials/JavaAlgorithmsDijkstra/article.html#shortestpath_graphproblems
  */
 public class Dijkstra {
 
-    private final List<Edge> edges;
+    private List<Edge> edges = new LinkedList<>();
     private Set<Vertex> settledVertices;
     private Set<Vertex> unsettledVertices;
     private Map<Vertex, Vertex> predecessors;
     private Map<Vertex, Integer> verticesWeights;
 
     public Dijkstra(Graph graph) {
-        // create a copy of the array so that we can operate on this array
-        this.edges = graph.getEdges();
+        LinkedList<Vertex>[] lists = graph.getAdjacencyList();
+
+        for(LinkedList<Vertex> linkedList : lists) {
+            linkedList.forEach(x -> edges.addAll(x.getEdges()));
+        }
     }
 
     public void executeWeighted(Vertex source) {
@@ -137,7 +140,7 @@ public class Dijkstra {
         return minimum;
     }
 
-    public Map<Vertex, Integer> getVerticesWeights() {
-        return verticesWeights;
+    public List<Edge> getEdges() {
+        return edges;
     }
 }

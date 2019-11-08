@@ -9,7 +9,7 @@ import java.util.Arrays;
 import static org.junit.Assert.assertArrayEquals;
 
 /**
- * Generic sorting algorithm test class, for now we only have the QuickSort algorithm so each test tests this algorithm
+ * Generic sorting algorithm test class, voor nu hebben we enkel het QuickSort algoritme om te testen.
  */
 public class SortingAlgorithmTest extends BaseUnitTest {
 

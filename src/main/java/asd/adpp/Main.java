@@ -58,7 +58,7 @@ public class Main {
         edges.add(new Edge(vertexC, vertexD, 50));
         edges.add(new Edge(vertexA, vertexD, 30));
 
-        Graph graph = new Graph(vertices, edges);
+        Graph graph = new Graph(vertices);
         Dijkstra dijkstra = new Dijkstra(graph);
 
         dijkstra.executeWeighted(source);
